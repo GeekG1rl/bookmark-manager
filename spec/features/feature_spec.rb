@@ -24,8 +24,8 @@ feature 'create new links' do
   end
 end
 
-feature 'add single tag to a link' do
-  scenario 'add tag' do
+feature 'adding tags' do
+  scenario 'add a single tag' do
     visit '/links/new'
     fill_in "title", with: "Makers"
     fill_in "url", with: "http://www.makersacademy.com/"
@@ -33,6 +33,16 @@ feature 'add single tag to a link' do
     click_button 'submit'
     link = Link.first
     expect(link.tags.map(&:name)).to include 'education'
+  end
+  scenario 'add more than one tag' do
+    visit '/links/new'
+    fill_in 'url',   with: 'http://www.makersacademy.com/'
+    fill_in 'title', with: 'Makers Academy'
+    # our tags will be space separated
+    fill_in 'tags',  with: 'education ruby'
+    click_button 'submit'
+    link = Link.first
+    expect(link.tags.map(&:name)).to include('education', 'ruby')
   end
 end
 
@@ -55,8 +65,6 @@ feature 'filter by tags' do
     end
   end
 end
-
-
 
 
 
