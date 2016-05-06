@@ -19,7 +19,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/links' do
-    link = Link.new(title: params[:title], url: params[:url])
+    link = Link.create(title: params[:title], url: params[:url])
     tag = Tag.create(name: params[:tags])
     link.tags << tag
     p link.tags
