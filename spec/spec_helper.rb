@@ -3,11 +3,13 @@ ENV['RACK_ENV'] = 'test'
 
 require File.join(File.dirname(__FILE__), '..', './app/app.rb')
 
+require 'database_cleaner'
 require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 require './app/models/link'
-require 'database_cleaner'
+
+# RACK_ENV = ENV['RACK_ENV']
 
 Capybara.app = BookmarkManager
 
